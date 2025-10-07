@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Kenangan</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fefefe;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+ #letter {
+    width: 220px;              /* Lebar surat */
+    height: 220px;             /* Tinggi surat, sesuaikan proporsinya */
+    background-image: url('assets/surat.png');
+    background-size: contain;  /* Agar gambar muat di div */
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 2;
+
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-5px) rotate(-2deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(5px) rotate(2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+#letter:hover {
+    transform: scale(1.1); /* Membesar saat hover */
+}
+
+  #letter:hover {
+    transform: scale(1.05);
+  }
+
+  #cards-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 1200px;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .card {
+    position: relative;
+    overflow-y: auto;
+    width: 220px;
+    margin: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    text-align: center;
+    padding-bottom: 10px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: transform 0.7s ease, opacity 0.7s ease;
+  }
+
+  .card img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .card p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+  }
+
+  .show .card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  body.clicked {
+    background: linear-gradient(135deg, #ffe0e0, #ffd0f0); 
+  }/* bisa diganti warna atau gambar */
+</style>
+</head>
+<body>
+
+<div id="letter"></div>
+
+<div id="cards-container">
+  <div class="card">
+    <img src="assets/nana.jpg" alt="Foto 1">
+    <p>ini kamu lagi makan lucu banget 😣</p>
+  </div>
+  <div class="card">
+    <img src="assets/nanaAirport.jpg" alt="Foto 2">
+    <p>ini waktu kita mau terbang ✈️</p>
+  </div>
+  <div class="card">
+    <img src="assets/nanabobo.jpg" alt="Foto 3">
+    <p>kamu bobo aku foto hihihi 🤞</p>
+  </div>
+  <div class="card">
+    <img src="assets/nanaburung.jpg" alt="Foto 4">
+    <p>sama sama lucu 🕊️</p>
+  </div>
+  <div class="card">
+    <img src="assets/nanacapek.jpg" alt="Foto 5">
+    <p>Lelah kah cantik ? 😪</p>
+  </div>
+    <div class="card">
+    <img src="assets/nanajalan.jpg" alt="Foto 5">
+    <p>Kapan jalan lagi manis ?</p>
+  </div>
+</div>
+
+<audio id="audio" src="assets/I Love You So - The Walters cover (mp3cut.net).mp3"></audio>
+
+<script>
+  const letter = document.getElementById('letter');
+  const container = document.getElementById('cards-container');
+  const audio = document.getElementById('audio');
+
+  letter.addEventListener('click', () => {
+    const cards = document.querySelectorAll('.card');
+    container.classList.add('show');
+    audio.play();
+    letter.style.display = 'none';
+
+    // animasi stagger: muncul satu per satu
+    cards.forEach((card, index) => {
+      setTimeout(() => {
+        card.style.opacity = 1;
+        card.style.transform = 'translateY(0)';
+      }, index * 150);
+    });
+  });
+
+  letter.addEventListener('click', () => {
+    const cards = document.querySelectorAll('.card');
+    container.classList.add('show');
+    audio.play();
+    letter.style.display = 'none';
+
+    // ubah background
+    document.body.classList.add('clicked');
+
+    // animasi stagger card
+    cards.forEach((card, index) => {
+      setTimeout(() => {
+        card.style.opacity = 1;
+        card.style.transform = 'translateY(0)';
+      }, index * 150);
+    });
+});
+  
+</script>
+
+</body>
+</html>
